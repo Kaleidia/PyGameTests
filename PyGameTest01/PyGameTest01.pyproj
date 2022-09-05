@@ -23,6 +23,12 @@
   <ItemGroup>
     <Compile Include="PyGameTest01.py" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="pix\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="pix\Moving Forward_000.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
        Visual Studio and specify your pre- and post-build commands in
