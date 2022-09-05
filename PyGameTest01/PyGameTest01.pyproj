@@ -21,12 +21,15 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Enemy.py" />
+    <Compile Include="Player.py" />
     <Compile Include="PyGameTest01.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="pix\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="pix\Background - 01.png" />
     <Content Include="pix\Moving Forward_000.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
