@@ -19,9 +19,10 @@ from Enemy import Enemy
 screenWidth = 800
 screenHeight = 600
 
-
 pygame.init()
+pygame.font.init()
 
+myFont = pygame.font.SysFont("Times New Roman",30)
 
 #create a window
 screen = pygame.display.set_mode([screenWidth,screenHeight])
@@ -31,11 +32,13 @@ clock = pygame.time.Clock()
 addEnemy = pygame.USEREVENT +1
 pygame.time.set_timer(addEnemy,250)
 
-player = Player(screenWidth,screenHeight)
+player = Player(screen,screenWidth,screenHeight)
 
 enemies = pygame.sprite.Group()
 allSprites=pygame.sprite.Group()
 allSprites.add(player)
+
+score = 0
 
 class Background(pygame.sprite.Sprite):
     def __init__(self):
@@ -60,21 +63,28 @@ while running:
             running = False
 
         elif event.type == addEnemy:
-            enemy = Enemy(screenWidth,screenHeight)
+            enemy = Enemy(screen,screenWidth,screenHeight)
             enemies.add(enemy)
             allSprites.add(enemy)
 
     pressedKeys =pygame.key.get_pressed()
 
-    player.update(pressedKeys)
+    player.update(pressedKeys,screen)
     enemies.update()
 
     screen.fill((0,0,0))
 
     screen.blit(bg.surf,bg.rect)
     for entity in allSprites:
-        screen.blit(entity.surf,entity.rect)
+        entity.BlitMe()
 
+    hit = pygame.sprite.spritecollide(player,enemies, True)
+    if hit:
+        score+=1
+
+    textSurface = myFont.render(f"Score: {score}", False,(0,0,0))
+
+    screen.blit(textSurface,(0,0))
     #update screen
     pygame.display.flip()
 

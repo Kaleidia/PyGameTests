@@ -1,3 +1,4 @@
+from pickle import TRUE
 import pygame
 from pygame.locals import(
     RLEACCEL,
@@ -14,27 +15,31 @@ from pygame.locals import(
     QUIT
     )
 
-size =.25
-
 class Player(pygame.sprite.Sprite):
-    def __init__(self,screenWidth,screenHeight):
+    def __init__(self,screen,screenWidth,screenHeight):
         super(Player, self).__init__()
+        self.screen = screen
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
+        self.size =.25
+        self.changeDirection = False
         image: self.surf = pygame.image.load("pix/Moving Forward_000.png").convert_alpha()
         #self.surf.set_colorkey((255,255,255),RLEACCEL)
-        self.surf = pygame.transform.scale(image,(image.get_size()[0] * size, image.get_size()[1] * size))
+        self.surf = pygame.transform.scale(image,(image.get_size()[0] * self.size, image.get_size()[1] * self.size))
         self.rect = self.surf.get_rect()
 
-    def update(self,pressedKeys):
+    def update(self,pressedKeys,screen):
+        self.screen=screen
         if pressedKeys[K_UP] or pressedKeys[K_w]:
             self.rect.move_ip(0,-5)
         if pressedKeys[K_DOWN] or pressedKeys[K_s]:
             self.rect.move_ip(0,5)
         if pressedKeys[K_LEFT] or pressedKeys[K_a]:
             self.rect.move_ip(-5,0)
+            self.changeDirection=True
         if pressedKeys[K_RIGHT] or pressedKeys[K_d]:
             self.rect.move_ip(5,0)
+            self.changeDirection=False
 
         if self.rect.left<0:
             self.rect.left=0
@@ -45,6 +50,8 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom>=self.screenHeight:
             self.rect.bottom=self.screenHeight
 
-
-
-
+    def BlitMe(self):
+        if self.changeDirection==False:
+            self.screen.blit(self.surf,self.rect)
+        elif self.changeDirection == True:
+            self.screen.blit(pygame.transform.flip(self.surf,True,False),self.rect)

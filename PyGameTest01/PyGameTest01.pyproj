@@ -30,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pix\Background - 01.png" />
+    <Content Include="pix\Left - Idle_000.png" />
     <Content Include="pix\Moving Forward_000.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
