@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyGameTest01", "PyGameTest01\PyGameTest01.pyproj", "{C25A4062-18FD-4E97-9315-735631AF6040}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PyGameTest02", "PyGameTest02\PyGameTest02.pyproj", "{7EB84367-8A01-4AED-9F22-6A33AA6DA236}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C25A4062-18FD-4E97-9315-735631AF6040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C25A4062-18FD-4E97-9315-735631AF6040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EB84367-8A01-4AED-9F22-6A33AA6DA236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EB84367-8A01-4AED-9F22-6A33AA6DA236}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

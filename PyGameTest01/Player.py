@@ -1,5 +1,7 @@
-from pickle import TRUE
+from pathlib import Path
 import pygame
+import os
+
 from pygame.locals import(
     RLEACCEL,
     K_UP,
@@ -15,15 +17,24 @@ from pygame.locals import(
     QUIT
     )
 
+def loadImages(path):
+    images = []
+    for file_name in os.listdir(path):
+        image = pygame.image.load(path+os.sep+file_name).convert_alpha()
+        images.append(image)
+    return images
+
 class Player(pygame.sprite.Sprite):
     def __init__(self,screen,screenWidth,screenHeight):
         super(Player, self).__init__()
         self.screen = screen
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
+        self.imageSize = (660,512)
+
         self.size =.25
         self.changeDirection = False
-        image: self.surf = pygame.image.load("pix/Moving Forward_000.png").convert_alpha()
+        image: self.surf = loadImages("pix/Dragon")[0]
         #self.surf.set_colorkey((255,255,255),RLEACCEL)
         self.surf = pygame.transform.scale(image,(image.get_size()[0] * self.size, image.get_size()[1] * self.size))
         self.rect = self.surf.get_rect()

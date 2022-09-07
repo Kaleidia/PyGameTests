@@ -27,11 +27,29 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="pix\" />
+    <Folder Include="pix\Dragon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="pix\Background - 01.png" />
+    <Content Include="pix\Dragon\Moving Forward_001.png" />
+    <Content Include="pix\Dragon\Moving Forward_002.png" />
+    <Content Include="pix\Dragon\Moving Forward_003.png" />
+    <Content Include="pix\Dragon\Moving Forward_004.png" />
+    <Content Include="pix\Dragon\Moving Forward_005.png" />
+    <Content Include="pix\Dragon\Moving Forward_006.png" />
+    <Content Include="pix\Dragon\Moving Forward_007.png" />
+    <Content Include="pix\Dragon\Moving Forward_008.png" />
+    <Content Include="pix\Dragon\Moving Forward_009.png" />
+    <Content Include="pix\Dragon\Moving Forward_010.png" />
+    <Content Include="pix\Dragon\Moving Forward_011.png" />
+    <Content Include="pix\Dragon\Moving Forward_012.png" />
+    <Content Include="pix\Dragon\Moving Forward_013.png" />
+    <Content Include="pix\Dragon\Moving Forward_014.png" />
+    <Content Include="pix\Dragon\Moving Forward_015.png" />
+    <Content Include="pix\Dragon\Moving Forward_016.png" />
+    <Content Include="pix\Dragon\Moving Forward_017.png" />
     <Content Include="pix\Left - Idle_000.png" />
-    <Content Include="pix\Moving Forward_000.png" />
+    <Content Include="pix\Dragon\Moving Forward_000.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

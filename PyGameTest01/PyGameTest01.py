@@ -82,7 +82,7 @@ while running:
     if hit:
         score+=1
 
-    textSurface = myFont.render(f"Score: {score}", False,(0,0,0))
+    textSurface = myFont.render(f"Score: {score}", False,(255,0,0))
 
     screen.blit(textSurface,(0,0))
     #update screen
