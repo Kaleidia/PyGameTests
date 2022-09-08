@@ -1,4 +1,3 @@
-from pathlib import Path
 import pygame
 import os
 
@@ -34,10 +33,19 @@ class Player(pygame.sprite.Sprite):
 
         self.size =.25
         self.changeDirection = False
-        image: self.surf = loadImages("pix/Dragon")[0]
+        self.allFrames = loadImages("pix/Dragon")
+        self.rightImages = self.allFrames
+        self.leftImages = [pygame.transform.flip(image, True, False) for image in self.allFrames]
+        self.index = 0
+        image: self.surf = self.allFrames[self.index]
         #self.surf.set_colorkey((255,255,255),RLEACCEL)
         self.surf = pygame.transform.scale(image,(image.get_size()[0] * self.size, image.get_size()[1] * self.size))
         self.rect = self.surf.get_rect()
+
+        self.animTime = .1
+        self.currentTime = 0
+        self.animFrames = len(self.allFrames)
+        self.currentFrame = 0
 
     def update(self,pressedKeys,screen):
         self.screen=screen

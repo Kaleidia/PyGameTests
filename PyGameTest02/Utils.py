@@ -1,6 +1,6 @@
-from asyncio.windows_events import NULL
 import os
 import pygame
+from pygame.locals import *
 
 def loadImages(path):
     images = []
@@ -28,4 +28,34 @@ def getTileMap(tileCount,path,name):
     print(tileMap)
     return tileMap
 
-
+def checkKey(event,keyName):
+    if keyName=="up":
+        if event.key == pygame.K_UP:
+            return True
+        elif event.key == pygame.K_w:
+            return True
+        else:
+            return False
+    elif keyName=="down":
+        if event.key == pygame.K_DOWN:
+            return True
+        elif event.key == pygame.K_s:
+            return True
+        else:
+            return False
+    elif keyName=="left":
+        if event.key == pygame.K_LEFT:
+            return True
+        elif event.key == pygame.K_a:
+            return True
+        else:
+            return False
+    elif keyName=="right":
+        if event.key == pygame.K_RIGHT:
+            return True
+        elif event.key == pygame.K_d:
+            return True
+        else:
+            return False
+    else:
+        return False

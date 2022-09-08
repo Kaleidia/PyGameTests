@@ -1,26 +1,14 @@
-from asyncio.windows_events import NULL
 import pygame
 import random
-from pygame.locals import(
-    RLEACCEL,
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
-    K_a,
-    K_s,
-    K_d,
-    K_w,
-    K_ESCAPE,
-    KEYDOWN,
-    QUIT
-    )
+from pygame.locals import *
 from Tile import Tile
-from Utils import getTileMap
-#from Player import Player
+from Utils import *
+from Player import Player
 #from Enemy import Enemy
 
-tileSize = 64
+FPS = 60
+
+tileSize = 128
 tileCount = 5
 screenWidth = tileSize * tileCount
 screenHeight = screenWidth
@@ -46,32 +34,36 @@ for x in range(0,tileCount):
 #addEnemy = pygame.USEREVENT +1
 #pygame.time.set_timer(addEnemy,250)
 
-#player = Player(screen,screenWidth,screenHeight)
+player = Player(tileSize,(100,100))
 
 #enemies = pygame.sprite.Group()
-#allSprites=pygame.sprite.Group()
-#allSprites.add(player)
+allSprites=pygame.sprite.Group()
+allSprites.add(player)
 
 score = 0
 
-#class Background(pygame.sprite.Sprite):
-#    def __init__(self):
-#        super(Background, self).__init__()
-#        image: self.surf = pygame.image.load("pix/Background - 01.png").convert_alpha()
-#        self.surf = pygame.transform.scale(image,(screenWidth, screenHeight))
-#        self.rect = self.surf.get_rect()
-
-#bg = Background()
 running = True
 while running:
 
+    dt=clock.tick(FPS) / 1000
     #event loop
     for event in pygame.event.get():
-
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
                 running = False
-
+            if checkKey(event,"right"):
+                player.velocity.x = 4
+            elif checkKey(event,"left"):
+                player.velocity.x = -4
+            elif checkKey(event,"down"):
+                player.velocity.y = 4
+            elif checkKey(event,"up"):
+                player.velocity.y = -4
+        elif event.type == pygame.KEYUP:
+            if checkKey(event,"right") or checkKey(event,"left"):
+                player.velocity.x = 0
+            elif checkKey(event,"down") or checkKey(event,"up"):
+                player.velocity.y = 0
         #quit event (x) in window title bar
         elif event.type == pygame.QUIT:
             running = False
@@ -81,30 +73,39 @@ while running:
         #    enemies.add(enemy)
         #    allSprites.add(enemy)
 
-    pressedKeys =pygame.key.get_pressed()
-
-    #player.update(pressedKeys,screen)
+    allSprites.update(dt)
     #enemies.update()
-
+    halfPlayerWidth = tileSize/2
+    
+    #map transition
+    if player.rect[0] < -halfPlayerWidth:
+        player.rect[0] = screenWidth-halfPlayerWidth
+        print("transition west")
+        #load map in worldmap[xpos][ypos-1]
+    elif player.rect[0] > screenWidth-halfPlayerWidth:
+        player.rect[0] = -halfPlayerWidth
+        print("transition east")
+        #load map in worldmap[xpos][ypos+1]
+    elif player.rect[1] < -halfPlayerWidth:
+        player.rect[1] = screenWidth-halfPlayerWidth
+        print("transition north")
+        #load map in worldmap[xpos-1][ypos]
+    elif player.rect[1] > screenWidth-halfPlayerWidth:
+        player.rect[1] = -halfPlayerWidth
+        print("transition south")
+        #load map in worldmap[xpos+1][ypos]
     screen.fill((0,0,0))
 
     for tile in tiles:
         screen.blit(tile.surf,tile.pos)
-    #screen.blit(bg.surf,bg.rect)
-    #for entity in allSprites:
-    #    entity.BlitMe()
 
     #hit = pygame.sprite.spritecollide(player,enemies, True)
     #if hit:
     #    score+=1
-
     #textSurface = myFont.render(f"Score: {score}", False,(255,0,0))
+    allSprites.draw(screen)
 
-    #screen.blit(textSurface,(0,0))
     #update screen
-    pygame.display.flip()
-
-    #set framerate
-    clock.tick(60)
+    pygame.display.update()
 
 pygame.quit()
