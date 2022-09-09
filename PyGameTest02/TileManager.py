@@ -9,7 +9,10 @@ class TileManager(object):
         self.tileSize = tileSize
         self.currentTileMap = TileMap(tileCount,"Maps","Map01.txt")
         print(self.currentTileMap)
-
+        self.tileMaps=[]
+        self.tileMaps.append(self.currentTileMap)
+        self.tileMaps.append(TileMap(tileCount,"Maps","Map02.txt"))
+        self.tileMaps.append(TileMap(tileCount,"Maps","Map03.txt"))
         self.tiles = []
         #for x in range(0,self.tileCount):
         #    for y in range(0,self.tileCount):
@@ -23,7 +26,7 @@ class TileManager(object):
 
     def loadNewTileMap(self):
         name=self.currentTileMap.currentTransitionMap
-        self.currentTileMap= TileMap(self.tileCount,"Maps",f"Map{name}.txt")
+        self.currentTileMap= self.tileMaps[name-1] #TileMap(self.tileCount,"Maps",f"Map{name}.txt")
         #for x in range(0,self.tileCount):
         #    for y in range(0,self.tileCount):
         #        tile = Tile(self.tileSize,x,y,self.currentTileMap.tileMap[x][y])

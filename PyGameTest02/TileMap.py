@@ -29,24 +29,23 @@ class TileMap(object):
         lines.remove(lines[0])
         for line in lines:
             temp = line.split(",")
-            for y in range(0,len(temp)):
-                if(temp[y]!="\n"):
-                    tileMap[index][y]=int(temp[y])
+            for x in range(0,len(temp)):
+                if(temp[x]!="\n"):
+                    tileMap[x][index]=int(temp[x])-1
             index+=1
 
         self.transitions = [line.strip() for line in self.transitions]
-        self.transitionMaps = [line.strip() for line in self.transitionMaps]
+        self.transitionMaps = [int(line.strip()) for line in self.transitionMaps]
         return tileMap
 
     def checkTransition(self, direction):
-        print(f"{direction}?")
-        print(self.transitions[0])
+        #print(f"{direction}?")
+        #print(self.transitions[0])
+        check = False
         for transition in self.transitions:
-            print(f"{transition} == {direction}?")
+            #print(f"{transition} == {direction}?")
             if transition == direction:
                 self.currentTransitionMap = self.transitionMaps[self.transitions.index(direction)]
-                return True
-                break
-            else:
-                return False
-                break
+                check = True
+
+        return check

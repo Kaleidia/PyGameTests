@@ -9,8 +9,8 @@ from Player import Player
 
 FPS = 60
 
-tileSize = 128
-tileCount = 5
+tileSize = 64
+tileCount = 10
 screenWidth = tileSize * tileCount
 screenHeight = screenWidth
 

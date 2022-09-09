@@ -58,6 +58,7 @@
   <ItemGroup>
     <Content Include="Maps\Map01.txt" />
     <Content Include="Maps\Map02.txt" />
+    <Content Include="Maps\Map03.txt" />
     <Content Include="pix\Player\Back - Hurt\Back - Hurt_000.png" />
     <Content Include="pix\Player\Back - Hurt\Back - Hurt_001.png" />
     <Content Include="pix\Player\Back - Hurt\Back - Hurt_002.png" />
