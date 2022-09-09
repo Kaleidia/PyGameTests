@@ -9,25 +9,6 @@ def loadImages(path):
         images.append(image)
     return images
 
-def getTileMap(tileCount,path,name):
-    tileMap = [[0 for x in range(tileCount)] for y in range(tileCount)]
-    f = open(path+os.sep+name)
-    index=0
-    while True:
-        line = f.readline()
-        if len(line) == 0:
-            break
-        print(line)
-        temp = line.split(",")
-        for y in range(0,len(temp)):
-            if(temp[y]!="\n"):
-                tileMap[index][y]=int(temp[y])
-
-        index+=1
-    f.close()
-    print(tileMap)
-    return tileMap
-
 def checkKey(event,keyName):
     if keyName=="up":
         if event.key == pygame.K_UP:

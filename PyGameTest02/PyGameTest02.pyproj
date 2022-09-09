@@ -25,6 +25,8 @@
     <Compile Include="Player.py" />
     <Compile Include="PyGameTest02.py" />
     <Compile Include="Tile.py" />
+    <Compile Include="TileManager.py" />
+    <Compile Include="TileMap.py" />
     <Compile Include="Utils.py" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Maps\Map01.txt" />
+    <Content Include="Maps\Map02.txt" />
     <Content Include="pix\Player\Back - Hurt\Back - Hurt_000.png" />
     <Content Include="pix\Player\Back - Hurt\Back - Hurt_001.png" />
     <Content Include="pix\Player\Back - Hurt\Back - Hurt_002.png" />
