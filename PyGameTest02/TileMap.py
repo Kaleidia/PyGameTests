@@ -12,21 +12,15 @@ class TileMap(object):
 
     def getTileMap(self,path,name):
         tileMap = [[0 for x in range(self.tileCount)] for y in range(self.tileCount)]
-        f = open(path+os.sep+name)
         index=0
-        lines=[]
         temp=""
-        while True:
-            line = f.readline()
-            if len(line) == 0:
-                break
-            lines.append(line)
-        f.close()
+        with open(path+os.sep+name) as file:
+            lines = [line for line in file.readlines() if len(line) != 0 ]
 
         self.transitions=lines[0].split(",")
         self.transitionMaps=lines[1].split(",")
-        lines.remove(lines[0])
-        lines.remove(lines[0])
+        lines.pop(0)
+        lines.pop(0)
         for line in lines:
             temp = line.split(",")
             for x in range(0,len(temp)):

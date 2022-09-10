@@ -3,11 +3,11 @@ import pygame
 from pygame.locals import *
 
 def loadImages(path):
-    images = []
-    for file_name in os.listdir(path):
-        image = pygame.image.load(path+os.sep+file_name).convert_alpha()
-        images.append(image)
-    return images
+    #images = 
+    #for file_name in os.listdir(path):
+    #    image = pygame.image.load(path+os.sep+file_name).convert_alpha()
+    #    images.append(image)
+    return [pygame.image.load(path+os.sep+file_name).convert_alpha() for file_name in os.listdir(path)] #images
 
 def checkKey(event,keyName):
     if keyName=="up":
