@@ -5,7 +5,7 @@ from Utils import *
 
 from TileManager import TileManager
 from Player import Player
-#from Enemy import Enemy
+from Enemy import Enemy
 
 FPS = 60
 
@@ -29,10 +29,12 @@ tileManager = TileManager(tileCount,tileSize)
 halfPlayerWidth = tileSize/2
 
 player = Player(tileSize,(screenWidth/2-halfPlayerWidth,screenWidth/2-halfPlayerWidth))
-
-#enemies = pygame.sprite.Group()
+enemy = Enemy(tileSize,(200,200))
+enemies = pygame.sprite.Group()
+enemies.add(enemy)
 allSprites=pygame.sprite.Group()
 allSprites.add(player)
+allSprites.add(enemies)
 
 score = 0
 
@@ -47,17 +49,29 @@ while running:
                 running = False
             if checkKey(event,"right"):
                 player.velocity.x = player.speed
+                enemy.move(player)
+                enemies.update(dt)
             elif checkKey(event,"left"):
                 player.velocity.x = -player.speed
+                enemy.move(player)
+                enemies.update(dt)
             elif checkKey(event,"down"):
                 player.velocity.y = player.speed
+                enemy.move(player)
+                enemies.update(dt)
             elif checkKey(event,"up"):
                 player.velocity.y = -player.speed
+                enemy.move(player)
+                enemies.update(dt)
         elif event.type == pygame.KEYUP:
             if checkKey(event,"right") or checkKey(event,"left"):
                 player.velocity.x = 0
+                enemy.move(player)
+                enemies.update(dt)
             elif checkKey(event,"down") or checkKey(event,"up"):
                 player.velocity.y = 0
+                enemy.move(player)
+                enemies.update(dt)
         #quit event (x) in window title bar
         elif event.type == pygame.QUIT:
             running = False
@@ -102,11 +116,15 @@ while running:
     screen.fill((0,0,0))
 
     tileManager.update(screen)
-    #hit = pygame.sprite.spritecollide(player,enemies, True)
-    #if hit:
-    #    score+=1
-    #textSurface = myFont.render(f"Score: {score}", False,(255,0,0))
+    hit = pygame.sprite.spritecollide(player,enemies, False)
+    if hit:
+        score+=1
+        enemy.velocity.x=0
+        enemy.velocity.y=0
+        enemies.update(dt)
+    textSurface = myFont.render(f"Hits: {score}", False,(255,0,0))
     allSprites.draw(screen)
+    screen.blit(textSurface,(0,0))
 
     #update screen
     pygame.display.update()
