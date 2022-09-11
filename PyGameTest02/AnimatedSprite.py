@@ -1,28 +1,70 @@
 import pygame
 
+
 class AnimatedSprite(pygame.sprite.Sprite):
-    def __init__(self,spriteSize,position,images,imagesUp,imagesDown,imagesLeft,imagesRight,imagesIdleUp,imagesIdleDown,imagesIdleLeft,imagesIdleRight):
-        super(AnimatedSprite,self).__init__()
+    def __init__(
+        self,
+        spriteSize,
+        position,
+        images,
+        imagesUp,
+        imagesDown,
+        imagesLeft,
+        imagesRight,
+        imagesIdleUp,
+        imagesIdleDown,
+        imagesIdleLeft,
+        imagesIdleRight,
+    ):
+        super(AnimatedSprite, self).__init__()
 
-        size = (spriteSize,spriteSize)
+        size = (spriteSize, spriteSize)
 
-        self.rect = pygame.Rect(position,size)
-        self.images = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in images]
-        self.idleImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in images]
-        self.rightImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesRight]
-        self.leftImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesLeft]
-        self.upImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesUp]
-        self.downImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesDown]
-        self.rightIdleImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesIdleRight]
-        self.leftIdleImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesIdleLeft]
-        self.upIdleImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesIdleUp]
-        self.downIdleImages = [pygame.transform.scale(image,(spriteSize,spriteSize)) for image in imagesIdleDown]
+        self.rect = pygame.Rect(position, size)
+        self.images = [
+            pygame.transform.scale(image, (spriteSize, spriteSize)) for image in images
+        ]
+        self.idleImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize)) for image in images
+        ]
+        self.rightImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesRight
+        ]
+        self.leftImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesLeft
+        ]
+        self.upImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesUp
+        ]
+        self.downImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesDown
+        ]
+        self.rightIdleImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesIdleRight
+        ]
+        self.leftIdleImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesIdleLeft
+        ]
+        self.upIdleImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesIdleUp
+        ]
+        self.downIdleImages = [
+            pygame.transform.scale(image, (spriteSize, spriteSize))
+            for image in imagesIdleDown
+        ]
         self.index = 0
         self.image = images[self.index]
 
         self.direction = "right"
 
-        self.velocity = pygame.math.Vector2(0,0)
+        self.velocity = pygame.math.Vector2(0, 0)
 
         self.animTime = 0.1
         self.currentTime = 0
