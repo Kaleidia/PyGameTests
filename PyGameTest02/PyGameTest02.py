@@ -87,7 +87,7 @@ while running:
 
     allSprites.update(dt)
     enemy.move(player)
-    enemies.update(dt, tileManager.xOffset, tileManager.yOffset)
+    print(tileManager.xOffset)
 
     # map transition
     if player.rect[0] < -halfPlayerWidth:
@@ -98,6 +98,7 @@ while running:
             tileManager.moveTileMap(1, 0)
             # tileManager.update(screen)
             print("transitioned west")
+            enemies.update(dt, screenWidth, 0)
     elif player.rect[0] > screenWidth - halfPlayerWidth:
         player.rect[0] = -halfPlayerWidth
         print("transition east")
@@ -105,6 +106,7 @@ while running:
         if tileManager.currentTileMap.checkTransition("east"):
             tileManager.moveTileMap(-1, 0)
             print("transitioned east")
+            enemies.update(dt, -screenWidth, 0)
     elif player.rect[1] < -halfPlayerWidth:
         player.rect[1] = screenWidth - halfPlayerWidth
         print("transition north")
@@ -112,6 +114,7 @@ while running:
         if tileManager.currentTileMap.checkTransition("north"):
             tileManager.moveTileMap(0, 1)
             print("transitioned north")
+            enemies.update(dt, 0, screenWidth)
     elif player.rect[1] > screenWidth - halfPlayerWidth:
         player.rect[1] = -halfPlayerWidth
         print("transition south")
@@ -119,6 +122,9 @@ while running:
         if tileManager.currentTileMap.checkTransition("south"):
             tileManager.moveTileMap(0, -1)
             print("transitioned south")
+            enemies.update(dt, 0, -screenWidth)
+    else:
+        enemies.update(dt, 0, 0)
     screen.fill((0, 0, 0))
 
     # print(player.rect)
@@ -126,10 +132,15 @@ while running:
 
     hit = pygame.sprite.spritecollide(player, enemies, False)
     if hit:
-        score += 1
-        enemy.velocity.x = 0
-        enemy.velocity.y = 0
-        enemies.update(dt, tileManager.xOffset, tileManager.yOffset)
+        disvect = pygame.math.Vector2(
+            player.rect.x - enemy.rect.x, player.rect.y - enemy.rect.y
+        )
+        if disvect.length() <= tileSize//2:
+            print("i could attack")
+            score += 1
+            enemy.velocity.x = 0
+            enemy.velocity.y = 0
+            #running = False
     textSurface = myFont.render(f"Hits: {score}", False, (255, 0, 0))
     allSprites.draw(screen)
     enemies.draw(screen)

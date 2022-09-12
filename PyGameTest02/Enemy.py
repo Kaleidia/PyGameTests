@@ -30,14 +30,24 @@ class Enemy(AnimatedSprite):
     def move(self, player):
         # find player position
         self.targetPos = player.rect
+        print(self.rect)
         # get closer to player
         # Find direction vector (dx, dy) between enemy and player.
         dirvect = pygame.math.Vector2(
             player.rect.x - self.rect.x, player.rect.y - self.rect.y
         )
-        dirvect.normalize()
+        print(dirvect.length())
+        if dirvect.length() != 0:
+            dirvect.normalize()
         # Move along this normalized vector towards the player at current speed.
-        dirvect.scale_to_length(self.speed)
-
-        self.velocity.x = dirvect[0]
-        self.velocity.y = dirvect[1]
+            dirvect.scale_to_length(self.speed)
+            self.velocity.x = dirvect[0]
+            self.velocity.y = dirvect[1]
+        
+        disvect = pygame.math.Vector2(
+            player.rect.x - self.rect.x, player.rect.y - self.rect.y
+        )
+        if disvect.length() <= self.spriteSize//2:
+            print("enemy could attack")
+            self.velocity.x = 0
+            self.velocity.y = 0

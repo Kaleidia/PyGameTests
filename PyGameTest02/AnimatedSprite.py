@@ -18,47 +18,21 @@ class AnimatedSprite(pygame.sprite.Sprite):
     ):
         super(AnimatedSprite, self).__init__()
 
+        self.spriteSize = spriteSize
+
         size = (spriteSize, spriteSize)
 
         self.rect = pygame.Rect(position, size)
-        self.images = [
-            pygame.transform.scale(image, (spriteSize, spriteSize)) for image in images
-        ]
-        self.idleImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize)) for image in images
-        ]
-        self.rightImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesRight
-        ]
-        self.leftImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesLeft
-        ]
-        self.upImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesUp
-        ]
-        self.downImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesDown
-        ]
-        self.rightIdleImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesIdleRight
-        ]
-        self.leftIdleImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesIdleLeft
-        ]
-        self.upIdleImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesIdleUp
-        ]
-        self.downIdleImages = [
-            pygame.transform.scale(image, (spriteSize, spriteSize))
-            for image in imagesIdleDown
-        ]
+        self.images = self.iterateImages(images)
+        self.idleImages = self.iterateImages(images)
+        self.rightImages = self.iterateImages(imagesRight)
+        self.leftImages = self.iterateImages(imagesLeft)
+        self.upImages = self.iterateImages(imagesUp)
+        self.downImages = self.iterateImages(imagesDown)
+        self.rightIdleImages = self.iterateImages(imagesIdleRight)
+        self.leftIdleImages = self.iterateImages(imagesIdleLeft)
+        self.upIdleImages = self.iterateImages(imagesIdleUp)
+        self.downIdleImages = self.iterateImages(imagesIdleDown)
         self.index = 0
         self.image = images[self.index]
 
@@ -99,3 +73,9 @@ class AnimatedSprite(pygame.sprite.Sprite):
             self.image = self.images[self.index]
 
         self.rect.move_ip(*self.velocity)
+
+    def iterateImages(self, imageList):
+        return [
+            pygame.transform.scale(image, (self.spriteSize, self.spriteSize))
+            for image in imageList
+        ]
