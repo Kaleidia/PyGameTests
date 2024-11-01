@@ -1,3 +1,4 @@
+from turtle import speed
 import pygame
 import os
 
@@ -32,6 +33,7 @@ class Player(pygame.sprite.Sprite):
         self.imageSize = (660,512)
 
         self.size =.25
+        self.speed = 10
         self.changeDirection = False
         self.allFrames = loadImages("pix/Dragon")
         self.rightImages = self.allFrames
@@ -42,22 +44,32 @@ class Player(pygame.sprite.Sprite):
         self.surf = pygame.transform.scale(image,(image.get_size()[0] * self.size, image.get_size()[1] * self.size))
         self.rect = self.surf.get_rect()
 
-        self.animTime = .1
+        self.animTime = 1.5
         self.currentTime = 0
         self.animFrames = len(self.allFrames)
         self.currentFrame = 0
 
-    def update(self,pressedKeys,screen):
+    def recalcSize(self):
+        image: self.surf = self.allFrames[self.index]
+        #self.surf.set_colorkey((255,255,255),RLEACCEL)
+        posx = self.rect.left
+        posy = self.rect.top
+        self.surf = pygame.transform.scale(image,(image.get_size()[0] * self.size, image.get_size()[1] * self.size))
+        self.rect = self.surf.get_rect()
+        self.rect.left=posx
+        self.rect.top=posy
+
+    def update(self,pressedKeys,screen,speed, dt):
         self.screen=screen
         if pressedKeys[K_UP] or pressedKeys[K_w]:
-            self.rect.move_ip(0,-5)
+            self.rect.move_ip(0,-speed)
         if pressedKeys[K_DOWN] or pressedKeys[K_s]:
-            self.rect.move_ip(0,5)
+            self.rect.move_ip(0,speed)
         if pressedKeys[K_LEFT] or pressedKeys[K_a]:
-            self.rect.move_ip(-5,0)
+            self.rect.move_ip(-speed,0)
             self.changeDirection=True
         if pressedKeys[K_RIGHT] or pressedKeys[K_d]:
-            self.rect.move_ip(5,0)
+            self.rect.move_ip(speed,0)
             self.changeDirection=False
 
         if self.rect.left<0:
@@ -68,6 +80,14 @@ class Player(pygame.sprite.Sprite):
             self.rect.top =0
         if self.rect.bottom>=self.screenHeight:
             self.rect.bottom=self.screenHeight
+            
+        self.currentTime += dt
+        if self.currentTime >= self.animTime:
+            self.currentTime = 0
+            self.index = (self.index + 1) % len(self.rightImages)
+            self.image = self.rightImages[self.index]
+            
+        self.recalcSize()
 
     def BlitMe(self):
         if self.changeDirection==False:
